@@ -1,3 +1,5 @@
+package fms1;
+
 public class State {
 
     private int state;
