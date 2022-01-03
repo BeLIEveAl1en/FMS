@@ -14,7 +14,7 @@ public class StateMachine {
             if (!validationSymbol())
                 return ValidationResult.unexpectedSymbol(str[position], position);
         }
-        if (state.getState() == 6){
+        if (state.getState() == 4){
             result = ValidationResult.valid();
         }
         else {
@@ -37,10 +37,10 @@ public class StateMachine {
                 return true;
 
             case 1 :
-                if(Character.isDigit(symbol)){
+                if (Character.isDigit(symbol)){
                     state.setState(1);
                 }
-                else if (Character.isWhitespace(symbol) || choice(symbol)){
+                else if (choice(symbol) || Character.isWhitespace(symbol)){
                     state.setState(2);
                 }
                 else {
@@ -49,38 +49,35 @@ public class StateMachine {
                 return true;
 
             case 2 :
-                if (Character.isWhitespace(symbol)){
+                if (choice(symbol)){
+                    state.setState(3);
+                }
+                else if (Character.isWhitespace(symbol)){
                     state.setState(2);
                 }
-                else if (choice(symbol)){
-                    state.setState(3);
+                else {
+                    return false;
                 }
                 return true;
 
             case 3 :
                 if (symbol == '-'){
-                    state.setState(5);
+                    state.setState(4);
                 }
                 else if (Character.isDigit(symbol)){
-                    state.setState(6);
-                }
-                else {
-                    return false;
+                    state.setState(4);
                 }
                 return true;
 
-            case 5 :
-                if(Character.isDigit(symbol)){
-                    state.setState(6);
-                }
-                else {
-                    return false;
-                }
-                return true;
-
-            case 6 :
-                if (Character.isWhitespace(symbol)){
+            case 4 :
+                if (Character.isWhitespace(symbol) || choice(symbol)){
                     state.setState(2);
+                }
+                else if (Character.isDigit(symbol)){
+                    state.setState(4);
+                }
+                else {
+                    return false;
                 }
                 return true;
         }

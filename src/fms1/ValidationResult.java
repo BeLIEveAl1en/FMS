@@ -1,6 +1,6 @@
 package fms1;
 
-import java.net.PortUnreachableException;
+import java.util.Objects;
 
 public class ValidationResult {
      private boolean isValid;
@@ -16,7 +16,7 @@ public class ValidationResult {
     }
 
     private static String fillComment(char symbol, int pos){
-        return String.format("", symbol, pos);
+        return String.format("Unexpected symbol " + symbol + " at " + pos, symbol, pos);
     }
 
     public static ValidationResult unexpectedSymbol(char symbol, int pos){
@@ -29,5 +29,9 @@ public class ValidationResult {
 
     public boolean isValid() {
         return isValid;
+    }
+
+    public String getComment(){
+        return comment;
     }
 }
