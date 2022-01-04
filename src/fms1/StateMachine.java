@@ -28,7 +28,7 @@ public class StateMachine {
         char symbol = str[position];
         switch (state.getState()){
             case 0 :
-                if (symbol == '-' || Character.isDigit(symbol) || symbol == '('){
+                if (symbol == '-' || Character.isDigit(symbol)){
                     state.setState(1);
                 }
                 else {
