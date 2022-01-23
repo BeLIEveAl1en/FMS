@@ -1,12 +1,10 @@
-package fms1;
-
-import java.util.Objects;
+package com.artem.math.validator;
 
 public class ValidationResult {
-     private boolean isValid;
-     private static String comment;
+    private final boolean isValid;
+    private static String comment;
 
-    public ValidationResult(boolean isValid, String comment) {
+    private ValidationResult(boolean isValid, String comment) {
         this.isValid = isValid;
         ValidationResult.comment = comment;
     }
@@ -35,3 +33,4 @@ public class ValidationResult {
         return comment;
     }
 }
+

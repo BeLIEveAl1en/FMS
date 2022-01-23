@@ -1,4 +1,4 @@
-package fms1;
+package com.artem.math.validator;
 
 public class StateMachine {
 
@@ -40,7 +40,7 @@ public class StateMachine {
                 if (Character.isDigit(symbol)){
                     state.setState(1);
                 }
-                else if (choice(symbol)){
+                else if (isOperator(symbol)){
                     state.setState(3);
                 }
                 else if (Character.isWhitespace(symbol)){
@@ -52,7 +52,7 @@ public class StateMachine {
                 return true;
 
             case 2 :
-                if (choice(symbol)){
+                if (isOperator(symbol)){
                     state.setState(3);
                 }
                 else if (Character.isWhitespace(symbol)){
@@ -79,7 +79,7 @@ public class StateMachine {
                 return true;
 
             case 4 :
-                if (Character.isWhitespace(symbol) || choice(symbol)){
+                if (Character.isWhitespace(symbol) || isOperator(symbol)){
                     state.setState(2);
                 }
                 else if (Character.isDigit(symbol)){
@@ -93,7 +93,7 @@ public class StateMachine {
         return false;
     }
 
-    public boolean choice(char symbol){
+    public boolean isOperator(char symbol){
         switch (symbol){
             case '+' :
             case '/' :
