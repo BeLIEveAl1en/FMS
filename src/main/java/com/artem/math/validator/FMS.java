@@ -1,9 +1,9 @@
-package fms1;
+package com.artem.math.validator;
 
 public class FMS {
 
     public static void main(String[] args) {
-        String str = "-21 / -700 + -485";
+        String str = "21/700+485";
         StateMachine stateMachine = new StateMachine();
 
         ValidationResult result = stateMachine.validate(str);
