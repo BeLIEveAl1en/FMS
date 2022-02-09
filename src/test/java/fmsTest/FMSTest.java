@@ -7,74 +7,54 @@ import org.junit.Test;
 
 public class FMSTest {
 
-    @Test
-    public void shouldPassWithWhitespace(){
-        String str = "21 / 700 + 485";
+    public void shouldPass(String str){
         StateMachine stateMachine = new StateMachine();
 
         ValidationResult result = stateMachine.validate(str);
 
         Assert.assertTrue(result.getComment(), result.isValid());
+    }
 
+    public void shouldFail(String str){
+        StateMachine stateMachine = new StateMachine();
+
+        ValidationResult result = stateMachine.validate(str);
+
+        Assert.assertFalse(result.getComment(), result.isValid());
+    }
+
+    @Test
+    public void shouldPassWithWhitespace(){
+        shouldPass("21 / 700 + 485");
     }
 
     @Test
     public void shouldPassWithoutWhitespace(){
-        String str = "21/700+485";
-        StateMachine stateMachine = new StateMachine();
-
-        ValidationResult result = stateMachine.validate(str);
-
-        Assert.assertTrue(result.getComment(), result.isValid());
+        shouldPass("21/700+485");
     }
 
     @Test
     public void shouldPassWithOperator(){
-        String str = "-21 / -700 + -485";
-        StateMachine stateMachine = new StateMachine();
-
-        ValidationResult result = stateMachine.validate(str);
-
-        Assert.assertTrue(result.getComment(), result.isValid());
+        shouldPass("-21 / -700 + -485");
     }
 
     @Test
     public void shouldPassWithOperatorAndWithoutWhitespace(){
-        String str = "-21/-700+-485";
-        StateMachine stateMachine = new StateMachine();
-
-        ValidationResult result = stateMachine.validate(str);
-
-        Assert.assertTrue(result.getComment(), result.isValid());
+        shouldPass("-21/-700+-485");
     }
 
     @Test
     public void shouldFailWithLetter(){
-        String str = "21h / 700 + j485";
-        StateMachine stateMachine = new StateMachine();
-
-        ValidationResult result = stateMachine.validate(str);
-
-        Assert.assertFalse(result.getComment(), result.isValid());
+        shouldFail("21h / 700 + j485");
     }
 
     @Test
     public void shouldFailWithUnexpectedEOF(){
-        String str = "21 / 700 + ";
-        StateMachine stateMachine = new StateMachine();
-
-        ValidationResult result = stateMachine.validate(str);
-
-        Assert.assertFalse(result.getComment(), result.isValid());
+        shouldFail("21 / 700 + ");
     }
 
     @Test
     public void shouldFailWithDoubleOperator(){
-        String str = "21 / 700 +- 485";
-        StateMachine stateMachine = new StateMachine();
-
-        ValidationResult result = stateMachine.validate(str);
-
-        Assert.assertFalse(result.getComment(), result.isValid());
+        shouldFail("21 / 700 +- 485");
     }
 }

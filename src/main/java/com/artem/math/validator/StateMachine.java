@@ -14,7 +14,7 @@ public class StateMachine {
             if (!validationSymbol())
                 return ValidationResult.unexpectedSymbol(str[position], position);
         }
-        if (state.getState() == 4){
+        if (state.getState() == 3){
             result = ValidationResult.valid();
         }
         else {
@@ -23,8 +23,8 @@ public class StateMachine {
         return result;
     }
 
+    //  21/700+485
     public boolean validationSymbol() {
-
         char symbol = str[position];
         switch (state.getState()){
             case 0 :
@@ -41,10 +41,10 @@ public class StateMachine {
                     state.setState(1);
                 }
                 else if (isOperator(symbol)){
-                    state.setState(3);
+                    state.setState(2);
                 }
                 else if (Character.isWhitespace(symbol)){
-                    state.setState(2);
+                    state.setState(1);
                 }
                 else {
                     return false;
@@ -52,11 +52,11 @@ public class StateMachine {
                 return true;
 
             case 2 :
-                if (isOperator(symbol)){
-                    state.setState(3);
-                }
-                else if (Character.isWhitespace(symbol)){
+                if (Character.isWhitespace(symbol)){
                     state.setState(2);
+                }
+                else if (Character.isDigit(symbol) || symbol == '-'){
+                    state.setState(3);
                 }
                 else {
                     return false;
@@ -64,26 +64,14 @@ public class StateMachine {
                 return true;
 
             case 3 :
-                if (symbol == '-'){
-                    state.setState(4);
+                if (Character.isWhitespace(symbol)){
+                    state.setState(1);
                 }
-                else if (Character.isDigit(symbol)){
-                    state.setState(4);
-                }
-                else if (Character.isWhitespace(symbol)){
+                else if (isOperator(symbol)){
                     state.setState(3);
                 }
-                else{
-                    return false;
-                }
-                return true;
-
-            case 4 :
-                if (Character.isWhitespace(symbol) || isOperator(symbol)){
-                    state.setState(2);
-                }
                 else if (Character.isDigit(symbol)){
-                    state.setState(4);
+                    state.setState(3);
                 }
                 else {
                     return false;
