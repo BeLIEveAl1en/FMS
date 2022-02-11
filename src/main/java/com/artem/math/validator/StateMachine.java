@@ -37,28 +37,20 @@ public class StateMachine {
                 return true;
 
             case 1 :
-                if (Character.isDigit(symbol)){
-                    state.setState(1);
-                }
-                else if (isOperator(symbol)){
+                if (isOperator(symbol)){
                     state.setState(2);
                 }
-                else if (Character.isWhitespace(symbol)){
-                    state.setState(1);
-                }
-                else {
+                else if(!Character.isDigit(symbol) && !Character.isWhitespace(symbol)){
+                    System.out.println("bad");
                     return false;
                 }
                 return true;
 
             case 2 :
-                if (Character.isWhitespace(symbol)){
-                    state.setState(2);
-                }
-                else if (Character.isDigit(symbol) || symbol == '-'){
+                if (Character.isDigit(symbol) || symbol == '-'){
                     state.setState(3);
                 }
-                else {
+                else if(!Character.isWhitespace(symbol)){
                     return false;
                 }
                 return true;
@@ -67,13 +59,7 @@ public class StateMachine {
                 if (Character.isWhitespace(symbol)){
                     state.setState(1);
                 }
-                else if (isOperator(symbol)){
-                    state.setState(3);
-                }
-                else if (Character.isDigit(symbol)){
-                    state.setState(3);
-                }
-                else {
+                else if(!isOperator(symbol) && !Character.isDigit(symbol)){
                     return false;
                 }
                 return true;
